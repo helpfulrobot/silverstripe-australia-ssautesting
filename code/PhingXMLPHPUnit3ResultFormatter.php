@@ -31,89 +31,88 @@ require_once 'PHPUnit/Util/Log/JUnit.php';
  */
 class PhingXMLPHPUnit3ResultFormatter extends PhingPHPUnit3ResultFormatter
 {
-	/**
-	 * @var PHPUnit_Util_Log_XML
-	 */
-	private $logger = NULL;
+    /**
+     * @var PHPUnit_Util_Log_XML
+     */
+    private $logger = null;
 
-	function __construct()
-	{
-		$this->logger = new PHPUnit_Util_Log_JUnit(null, true);
-		$this->logger->setWriteDocument(false);
-	}
+    public function __construct()
+    {
+        $this->logger = new PHPUnit_Util_Log_JUnit(null, true);
+        $this->logger->setWriteDocument(false);
+    }
 
-	function getExtension()
-	{
-		return ".xml";
-	}
+    public function getExtension()
+    {
+        return ".xml";
+    }
 
-	function getPreferredOutfile()
-	{
-		return "testsuites";
-	}
+    public function getPreferredOutfile()
+    {
+        return "testsuites";
+    }
 
-	function startTestSuite(PHPUnit_Framework_TestSuite $suite)
-	{
-		parent::startTestSuite($suite);
+    public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+    {
+        parent::startTestSuite($suite);
 
-		$this->logger->startTestSuite($suite);
-	}
+        $this->logger->startTestSuite($suite);
+    }
 
-	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
-	{
-		parent::endTestSuite($suite);
+    public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+    {
+        parent::endTestSuite($suite);
 
-		$this->logger->endTestSuite($suite);
-	}
+        $this->logger->endTestSuite($suite);
+    }
 
-	function startTest(PHPUnit_Framework_Test $test)
-	{
-		parent::startTest($test);
+    public function startTest(PHPUnit_Framework_Test $test)
+    {
+        parent::startTest($test);
 
-		$this->logger->startTest($test);
-	}
+        $this->logger->startTest($test);
+    }
 
-	function endTest(PHPUnit_Framework_Test $test, $time)
-	{
-		parent::endTest($test, $time);
+    public function endTest(PHPUnit_Framework_Test $test, $time)
+    {
+        parent::endTest($test, $time);
 
-		$this->logger->endTest($test, $time);
-	}
+        $this->logger->endTest($test, $time);
+    }
 
-	function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
-	{
-		parent::addError($test, $e, $time);
+    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
+        parent::addError($test, $e, $time);
 
-		$this->logger->addError($test, $e, $time);
-	}
+        $this->logger->addError($test, $e, $time);
+    }
 
-	function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
-	{
-		parent::addFailure($test, $e, $time);
+    public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+    {
+        parent::addFailure($test, $e, $time);
 
-		$this->logger->addFailure($test, $e, $time);
-	}
+        $this->logger->addFailure($test, $e, $time);
+    }
 
-	function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
-	{
-		parent::addIncompleteTest($test, $e, $time);
+    public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
+        parent::addIncompleteTest($test, $e, $time);
 
-		$this->logger->addIncompleteTest($test, $e, $time);
-	}
+        $this->logger->addIncompleteTest($test, $e, $time);
+    }
 
-	function endTestRun()
-	{
-		parent::endTestRun();
+    public function endTestRun()
+    {
+        parent::endTestRun();
 
-		if ($this->out)
-		{
-			$this->out->write($this->logger->getXML());
-			$this->out->close();
-		}
-	}
+        if ($this->out) {
+            $this->out->write($this->logger->getXML());
+            $this->out->close();
+        }
+    }
 
-	function writeResults($fname)
-	{
-		file_put_contents($fname, $this->logger->getXML());
-	}
+    public function writeResults($fname)
+    {
+        file_put_contents($fname, $this->logger->getXML());
+    }
 }
